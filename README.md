@@ -1,33 +1,43 @@
 # Microblogging-Web-App
-Small Micro blogging web app for my personal blogging
+Building this small micro-blogging app to try **fastapi**. **fastapi** going to be a superfast backend server probably going to implment reactive streams for realtime data streaming. My datastore will be **mongodb** container as there is some level of support (need to read more on it) to read data in a reactive fashion suitable for a micro-blogging app. Front end will be created in **react** (going to go with functional component, because why not). And probabaly all this would go into the micro-blog rather than on this readme 😛
 
-
-# Fast api setup
+## Fast api setup
+Going to skip this for now but will upload a good requirements.txt file or will try to manage dependencies via **poetry**
 Make sure uvicorn is on your env path
 
-# Setting up mongodb docker image
-Follow the steps:
+## Setting up mongodb docker image and database
+Follow the steps to get mongodb up and running in you local dev environment:
+
+*PS: If you are working on windows 10 home I'd recommend using DockerTool box. This can get your docker env setup easy on windows 10 home*
+
+1. Create a volume for the docker container for mongodb to store data/logs:
 ```
 docker volume create --name=mongodata
 ```
+2. Run the following command it will fetch mongodb latest image if you don't have it already pulled
 ```
 docker run --name mongodb -v mongodata:/data/db -d -p 27017-27019:27017-27019 mongo
 ```
+3. ssh into the bash shell of mongodb container
 ```
 docker exec -it mongodb bash
 ```
+4. Open the mongo shell
 ```
 mongo
 ```
+5. Check databases
 ```
 show dbs
 ```
+6. Select the database to use, if not created this command will create one for you
 ```
 use microblogging
 ```
-run 
+7. For windows user using DockerTool Box, to get connection string you will need your dockemachines IP address run:
 ```
 docker-machine ip default
 ```
-mongodb url: mongodb://<docker-machine-ip-address>:27017
+Your mongodb url is : ```mongodb://<docker-machine-ip-address>:27017```
 
+## Stay tuned for more .. 😀
