@@ -1,13 +1,13 @@
 from fastapi import FastAPI
-import motor.motor_asyncio
+from starlette.middleware.cors import CORSMiddleware
 from database.connection import connect_to_mongodb, close_connection
-from api.app import api_router
+from api.api import api_router
 
 app = FastAPI()
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=ALLOWED_HOSTS,
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
