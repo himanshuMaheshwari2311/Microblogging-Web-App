@@ -1,5 +1,5 @@
 # Microblogging-Web-App
-Building this small micro-blogging app to try **fastapi**. **fastapi** going to be a superfast backend server probably going to implment reactive streams for realtime data streaming. My datastore will be **mongodb** container as there is some level of support (need to read more on it) to read data in a reactive fashion suitable for a micro-blogging app. Front end will be created in **react** (going to go with functional component, because why not). And probabaly all this would go into the micro-blog rather than on this readme 😛
+Building this small micro-blogging app to try **fastapi**. **fastapi** going to be a superfast backend server probably going to implment reactive streams for realtime data streaming. My datastore will be **mongodb** container as there is some level of support (need to read more on it) to read data in a reactive fashion suitable for a micro-blogging app. Front end will be created in **react** (going to go with functional component, because why not). And this part would have been on the micro-blog instead of this readme 😛
 
 ## Fast api setup
 Going to skip this for now but will upload a good requirements.txt file or will try to manage dependencies via **poetry**
