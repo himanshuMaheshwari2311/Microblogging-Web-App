@@ -1,7 +1,6 @@
 from motor.motor_asyncio import AsyncIOMotorClient
 import logging
-
-DATABASE_URL = "mongodb://192.168.99.100:27017"
+from config.config import DATABASE_URL, DATABASE
 
 client = None
 
@@ -20,6 +19,6 @@ async def close_connection():
     client.close()
     logging.info("Closed connection to mongo db")
 
-async def get_mongo_client() -> AsyncIOMotorClient:
+async def get_mongo_database() -> AsyncIOMotorClient:
     global client
-    return client
+    return client[DATABASE]
