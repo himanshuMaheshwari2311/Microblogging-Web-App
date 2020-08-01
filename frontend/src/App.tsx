@@ -1,26 +1,31 @@
+import { createMuiTheme, ThemeProvider } from '@material-ui/core';
+import { grey } from '@material-ui/core/colors';
 import React from 'react';
-import logo from './logo.svg';
+import { RouteComponentProps, withRouter } from 'react-router-dom';
 import './App.css';
+import Sidenav from './Sidenav/Sidenav';
 
-function App() {
+const dark = createMuiTheme({
+  palette: {
+    primary: {
+      main: grey[800],
+    },
+    secondary: {
+      main: grey[50],
+    },
+    background: {
+      default: grey[700],
+      paper: grey[500],
+    },
+  },
+});
+
+const App: React.FC<RouteComponentProps> = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ThemeProvider theme={dark}>
+      <Sidenav />
+    </ThemeProvider>
   );
 }
 
-export default App;
+export default withRouter(App);

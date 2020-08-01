@@ -53,4 +53,14 @@ uvicorn main:app --reload
 
 And that's it! 🤨
 
+## Frontend scaffold
+Using react with typescript along with material-UI design. React functional components makes life a lot easy and material-UI's comprehensive docs makes it even more fun and fast to develop  
+If you want to scaffold your react project use the following command *(Make sure you have create-react-app npm package installed)*
+```
+npx create-react-app frontend --template typescript
+```
+Add in @material-ui/core node module to project and you are good to go!
+
+Still iterating over the design... 🙄
+
 ## Stay tuned for more .. 😀
