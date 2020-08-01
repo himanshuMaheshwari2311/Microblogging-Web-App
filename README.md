@@ -40,16 +40,16 @@ docker-machine ip default
 Your mongodb url is : ```mongodb://<docker-machine-ip-address>:27017```
 
 ## Starting the backend server
-Starting the app is pretty simple but you'll need uvicorn which is an asgi (Asynchronous Server Gateway Interface). If you read the code all the async magic is enabled because of this 🙃
-*Install uvicorn through pip if you haven't and ensure that it is on your system path so you can run it from any path*
+Starting the app is pretty simple but you'll need uvicorn which is an asgi (Asynchronous Server Gateway Interface). If you read the code all the async magic is enabled because of this 🙃  
+*Install uvicorn through pip if you haven't and ensure that it is on your system path*
 
 To start go to the backend directory and run:
 ```
 uvicorn main:app --reload
 ```
-main is the name of the py file which has the fastAPI instance
-app is the name of our object
---reload option enables hot reload
+**main** is the name of the py file which has the fastAPI instance  
+**app** is the name of fastapi object  
+**--reload** option enables hot reload
 
 And that's it! 🤨
 
