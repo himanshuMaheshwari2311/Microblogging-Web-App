@@ -3,7 +3,6 @@ Building this small micro-blogging app to try **fastapi**. **fastapi** going to 
 
 ## Fast api setup
 Going to skip this for now but will upload a good requirements.txt file or will try to manage dependencies via **poetry**
-Make sure uvicorn is on your env path
 
 ## Setting up mongodb docker image and database
 Follow the steps to get mongodb up and running in you local dev environment:
@@ -39,5 +38,19 @@ use microblogging
 docker-machine ip default
 ```
 Your mongodb url is : ```mongodb://<docker-machine-ip-address>:27017```
+
+## Starting the backend server
+Starting the app is pretty simple but you'll need uvicorn which is an asgi (Asynchronous Server Gateway Interface). If you read the code all the async magic is enabled because of this 🙃
+*Install uvicorn through pip if you haven't and ensure that it is on your system path so you can run it from any path*
+
+To start go to the backend directory and run:
+```
+uvicorn main:app --reload
+```
+main is the name of the py file which has the fastAPI instance
+app is the name of our object
+--reload option enables hot reload
+
+And that's it! 🤨
 
 ## Stay tuned for more .. 😀
