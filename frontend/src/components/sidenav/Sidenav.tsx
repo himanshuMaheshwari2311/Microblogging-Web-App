@@ -58,7 +58,6 @@ const useStyles = makeStyles((theme: Theme) =>
     }),
 );
 
-
 const Sidenav: React.FC = () => {
     const classes = useStyles();
     const [tag, setTag] = React.useState('General');

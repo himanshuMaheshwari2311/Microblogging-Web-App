@@ -126,9 +126,9 @@ const Blogs: React.FC<BlogProps> = ({ tag }) => {
         <div className={classes.root}>
             <Grid container spacing={2}>
                 {blogs.map((blog, index) => (
-                    <Grid item xs={12}>
+                    <Grid item xs={12} key={index}>
                         <Grow in={true} timeout={500 * (index + 1)}>
-                            <Card className={classes.cardRoot} variant="outlined">
+                            <Card className={classes.cardRoot} variant="outlined" key={index}>
                                 <CardContent>
                                     <Typography className={classes.title} gutterBottom>
                                         {blog.title}
