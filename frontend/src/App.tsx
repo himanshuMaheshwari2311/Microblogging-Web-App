@@ -1,21 +1,20 @@
 import { createMuiTheme, ThemeProvider } from '@material-ui/core';
-import { grey } from '@material-ui/core/colors';
 import React from 'react';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import './App.css';
-import Sidenav from './Sidenav/Sidenav';
+import Sidenav from './components/sidenav/Sidenav';
 
 const dark = createMuiTheme({
   palette: {
     primary: {
-      main: grey[800],
+      main: '#1e1e1e',
     },
     secondary: {
-      main: grey[50],
+      main: '#4caf50',
     },
     background: {
-      default: grey[700],
-      paper: grey[500],
+      default: '#121212',
+      paper: '#121212',
     },
   },
 });
