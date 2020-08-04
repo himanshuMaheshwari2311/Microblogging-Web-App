@@ -11,6 +11,9 @@ import Typography from '@material-ui/core/Typography';
 import LibraryBooks from '@material-ui/icons/LibraryBooks';
 import React from 'react';
 import Blogs from '../blogs/Blogs';
+import IconButton from '@material-ui/core/IconButton';
+import SearchIcon from '@material-ui/icons/Search';
+import InputBase from '@material-ui/core/InputBase';
 
 const drawerWidth = 240;
 
@@ -54,7 +57,24 @@ const useStyles = makeStyles((theme: Theme) =>
         typography: {
             fontFamily: 'monospace',
             color: theme.palette.secondary.main,
-        }
+        },
+        input: {
+            marginLeft: theme.spacing(1),
+            flex: 1,
+            color: theme.palette.secondary.main,
+            fontFamily: 'monospace',
+            fontSize: '12pt',
+            width: '150px',
+        },
+        iconButton: {
+            padding: 10,
+            color: theme.palette.secondary.main,
+            fontSize: '13pt',
+        },
+        span: {
+            display: 'flex',
+            flexGrow: 3,
+        },
     }),
 );
 
@@ -73,7 +93,16 @@ const Sidenav: React.FC = () => {
                 <Toolbar>
                     <Typography variant="h3" noWrap className={classes.typography}>
                         Microblog
-            </Typography>
+                    </Typography>
+                    <span className={classes.span}></span>
+                    <InputBase
+                        className={classes.input}
+                        placeholder="Search"
+                        inputProps={{ 'aria-label': 'search' }}
+                    />
+                    <IconButton type="submit" className={classes.iconButton} aria-label="search">
+                        <SearchIcon />
+                    </IconButton>
                 </Toolbar>
             </AppBar>
             <Drawer
@@ -87,14 +116,30 @@ const Sidenav: React.FC = () => {
                     {['General', 'Machine Learning', 'Front End', 'Back End', 'Desgin Patterns', 'Cloud', 'Technology'].map((text, index) => (
                         <ListItem button key={text} onClick={() => updateTag(text)}>
                             <ListItemIcon className={classes.listIcon}><LibraryBooks /></ListItemIcon>
-                            <ListItemText primary={text} classes={{primary: classes.listText}}/>
+                            <ListItemText primary={text} classes={{ primary: classes.listText }} />
                         </ListItem>
                     ))}
                 </List>
             </Drawer>
             <main className={classes.content}>
-            <Blogs tag={tag}/>
+                <Blogs category={tag} />
             </main>
+            <Drawer
+                className={classes.drawer}
+                variant="permanent"
+                classes={{
+                    paper: classes.drawerPaper,
+                }}
+                anchor="left">
+                <List>
+                    {['General', 'Machine Learning', 'Front End', 'Back End', 'Desgin Patterns', 'Cloud', 'Technology'].map((text, index) => (
+                        <ListItem button key={text} onClick={() => updateTag(text)}>
+                            <ListItemIcon className={classes.listIcon}><LibraryBooks /></ListItemIcon>
+                            <ListItemText primary={text} classes={{ primary: classes.listText }} />
+                        </ListItem>
+                    ))}
+                </List>
+            </Drawer>
         </div>
     );
 }
