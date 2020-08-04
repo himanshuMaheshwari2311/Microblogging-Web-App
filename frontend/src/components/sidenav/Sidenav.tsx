@@ -10,10 +10,11 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import LibraryBooks from '@material-ui/icons/LibraryBooks';
 import React from 'react';
-import Blogs from '../blogs/Blogs';
+import { Blogs } from '../blogs/Blogs';
 import IconButton from '@material-ui/core/IconButton';
 import SearchIcon from '@material-ui/icons/Search';
 import InputBase from '@material-ui/core/InputBase';
+import { categories } from '../../constant/blog-type.const';
 
 const drawerWidth = 240;
 
@@ -113,8 +114,8 @@ const Sidenav: React.FC = () => {
                 }}
                 anchor="left">
                 <List>
-                    {['General', 'Machine Learning', 'Front End', 'Back End', 'Desgin Patterns', 'Cloud', 'Technology'].map((text, index) => (
-                        <ListItem button key={text} onClick={() => updateTag(text)}>
+                    {categories.map((text, index) => (
+                        <ListItem button key={index} onClick={() => updateTag(text)}>
                             <ListItemIcon className={classes.listIcon}><LibraryBooks /></ListItemIcon>
                             <ListItemText primary={text} classes={{ primary: classes.listText }} />
                         </ListItem>
@@ -132,8 +133,8 @@ const Sidenav: React.FC = () => {
                 }}
                 anchor="left">
                 <List>
-                    {['General', 'Machine Learning', 'Front End', 'Back End', 'Desgin Patterns', 'Cloud', 'Technology'].map((text, index) => (
-                        <ListItem button key={text} onClick={() => updateTag(text)}>
+                    {categories.map((text, index) => (
+                        <ListItem button key={index} onClick={() => updateTag(text)}>
                             <ListItemIcon className={classes.listIcon}><LibraryBooks /></ListItemIcon>
                             <ListItemText primary={text} classes={{ primary: classes.listText }} />
                         </ListItem>
