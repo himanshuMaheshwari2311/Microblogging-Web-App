@@ -2,9 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { makeStyles, Theme, createStyles, Grid, Card, CardContent, Typography, CardActions, Grow, InputBase, Button } from '@material-ui/core';
 import { Blog } from '../../model/Blog';
 import getBlogsByCategory from '../../service/GetBlogsByCategory';
-import Skeleton from '@material-ui/lab/Skeleton';
-import classes from '*.module.css';
-
+import { PageState } from '../../constant/page-state.const';
+import { BlogContent } from './BlogContent';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -13,23 +12,6 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         cardRoot: {
             backgroundColor: theme.palette.background.paper,
-        },
-        title: {
-            fontSize: '14pt',
-            fontFamily: 'monospace',
-            color: theme.palette.secondary.main,
-        },
-        content: {
-            fontSize: '11pt',
-            fontFamily: 'monospace',
-            color: theme.palette.secondary.main,
-        },
-        cardAction: {
-            fontSize: '10pt',
-            fontFamily: 'monospace',
-            color: theme.palette.secondary.main,
-            marginLeft: '10px',
-            flexDirection: 'row-reverse'
         },
         pos: {
             marginBottom: 12,
@@ -55,36 +37,37 @@ const useStyles = makeStyles((theme: Theme) =>
             width: '100%',
             height: '100%',
         },
+        cardAction: {
+            fontSize: '10pt',
+            fontFamily: 'monospace',
+            color: theme.palette.secondary.main,
+            marginLeft: '10px',
+            flexDirection: 'row-reverse'
+        }
     }),
 );
 
 interface BlogProps {
     category: string;
 }
-const Loader = () => {
-    return <>
-        <Grid item xs={12}>
-            <Skeleton height={'140px'} variant='rect' animation='wave'/>
-        </Grid>
-        <br></br>
-    </>
-}
 
-const Blogs: React.FC<BlogProps> = ({ category }) => {
+export const Blogs: React.FC<BlogProps> = ({ category }) => {
     const classes = useStyles();
     const [blogs, setBlog] = useState<Blog[]>([]);
-    const [loading, setLoading] = useState(true);
-
+    const [loading, setLoading] = useState<PageState>(PageState.LOADING);
 
     useEffect(() => {
-
-        setLoading(true);
-        getBlogsByCategory(category).then(blogs => {
-            setBlog(blogs.data);
-            setTimeout(() => {
-                setLoading(false);
-            }, 1000);
-        });
+        setLoading(PageState.LOADING);
+        getBlogsByCategory(category)
+            .then(blogs => {
+                setBlog(blogs.data);
+                setTimeout(() => {
+                    setLoading(PageState.LOADED);
+                }, 1000);
+            })
+            .catch((e) => {
+                setLoading(PageState.ERROR)
+            });
     }, [category]);
 
     return (
@@ -108,36 +91,8 @@ const Blogs: React.FC<BlogProps> = ({ category }) => {
                         </Card>
                     </Grow>
                 </Grid>
-                {loading ?
-                    <Grid item xs={12}>
-                        <Loader/>
-                        <Loader/>
-                    </Grid>
-                    :
-                    blogs.map((blog, index) => (
-                        <Grid item xs={12} key={index}>
-                            <Grow in={true} timeout={500 * (index + 1)}>
-                                <Card className={classes.cardRoot} variant="outlined" key={index}>
-                                    <CardContent>
-                                        <Typography className={classes.title} gutterBottom>
-                                            {blog.title}
-                                        </Typography>
-                                        <Typography className={classes.content} gutterBottom>
-                                            {blog.message}
-                                        </Typography>
-                                    </CardContent>
-                                    <CardActions className={classes.cardAction}>
-                                        <Typography className={classes.cardAction} gutterBottom>
-                                            {blog.timestamp}
-                                        </Typography>
-                                    </CardActions>
-                                </Card>
-                            </Grow>
-                        </Grid>
-                    ))}
+                <BlogContent loading={loading} blogs={blogs} />
             </Grid>
         </div >
     );
 }
-
-export default Blogs;
