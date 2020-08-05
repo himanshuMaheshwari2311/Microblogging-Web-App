@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { makeStyles, Theme, createStyles, Grid, Card, CardContent, Typography, CardActions, Grow, InputBase, Button } from '@material-ui/core';
+import { makeStyles, Theme, createStyles, Grid, Card, CardContent, CardActions, Grow, InputBase, Button } from '@material-ui/core';
 import { Blog } from '../../model/Blog';
 import getBlogsByCategory from '../../service/GetBlogsByCategory';
 import { PageState } from '../../constant/page-state.const';
@@ -55,6 +55,7 @@ export const Blogs: React.FC<BlogProps> = ({ category }) => {
     const classes = useStyles();
     const [blogs, setBlog] = useState<Blog[]>([]);
     const [loading, setLoading] = useState<PageState>(PageState.LOADING);
+    const [error, setError] = useState<string>('');
 
     useEffect(() => {
         setLoading(PageState.LOADING);
@@ -66,7 +67,8 @@ export const Blogs: React.FC<BlogProps> = ({ category }) => {
                 }, 1000);
             })
             .catch((e) => {
-                setLoading(PageState.ERROR)
+                setError(e.message);
+                setLoading(PageState.ERROR);
             });
     }, [category]);
 
@@ -91,7 +93,7 @@ export const Blogs: React.FC<BlogProps> = ({ category }) => {
                         </Card>
                     </Grow>
                 </Grid>
-                <BlogContent loading={loading} blogs={blogs} />
+                <BlogContent loading={loading} blogs={blogs} errorMessage={error} category={category} />
             </Grid>
         </div >
     );

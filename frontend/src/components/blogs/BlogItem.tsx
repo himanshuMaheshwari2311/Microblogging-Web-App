@@ -1,11 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import { makeStyles, Theme, createStyles, Grid, Card, CardContent, Typography, CardActions, Grow, InputBase, Button } from '@material-ui/core';
+import { Card, CardActions, CardContent, createStyles, Grid, Grow, makeStyles, Theme, Typography } from '@material-ui/core';
+import React from 'react';
 import { Blog } from '../../model/Blog';
-import getBlogsByCategory from '../../service/GetBlogsByCategory';
-import Skeleton from '@material-ui/lab/Skeleton';
-import classes from '*.module.css';
-import { PageState } from '../../constant/page-state.const';
-
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -34,14 +29,6 @@ const useStyles = makeStyles((theme: Theme) =>
 
 interface BlogItemProps extends Blog {
     index: number
-}
-const Loader = () => {
-    return <>
-        <Grid item xs={12}>
-            <Skeleton height={'140px'} variant='rect' animation='wave' />
-        </Grid>
-        <br></br>
-    </>
 }
 
 export const BlogItem: React.FC<BlogItemProps> = ({ index, title, message, timestamp }) => {
