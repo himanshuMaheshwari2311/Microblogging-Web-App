@@ -63,4 +63,9 @@ Add in @material-ui/core node module to project and you are good to go!
 
 Still iterating over the design... 🙄
 
+## Frontend design
+The UI will have a simple side nav bar which will have all the category type of the microblogs which I'll be putting up 😁. Header will also have a search bar along with the project title **"Microblog"**. For the search mongodb will not be feasible if I want to scale, thinking of switching to elastic search or solr. Mid section of the page will contain a post section, where I will be typing all my random thoughts and opinion about the categories that I create. Still need to decide what I'll be putting up on the right side
+
+React components and hooks makes life a lot easy. I am following a functional development style to build this project and so far it has made the development easy to maintain and debug 😇
+
 ## Stay tuned for more .. 😀
