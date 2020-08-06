@@ -3,6 +3,5 @@ export interface Blog {
     author: string;
     message: string;
     timestamp: string;
-    tags: string[];
     category: string;
 }
