@@ -1,8 +1,9 @@
+import { Button, Card, CardActions, CardContent, createStyles, Grid, Grow, InputBase, makeStyles, Theme } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
-import { makeStyles, Theme, createStyles, Grid, Card, CardContent, CardActions, Grow, InputBase, Button } from '@material-ui/core';
+import { PageState } from '../../constant/page-state.const';
 import { Blog } from '../../model/Blog';
 import getBlogsByCategory from '../../service/GetBlogsByCategory';
-import { PageState } from '../../constant/page-state.const';
+import postBlog from '../../service/PostBlogs';
 import { BlogContent } from './BlogContent';
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -17,6 +18,14 @@ const useStyles = makeStyles((theme: Theme) =>
             marginBottom: 12,
         },
         input: {
+            marginLeft: theme.spacing(1),
+            flex: 1,
+            color: theme.palette.secondary.main,
+            fontFamily: 'monospace',
+            fontSize: '13pt',
+            width: '100%',
+        },
+        title: {
             marginLeft: theme.spacing(1),
             flex: 1,
             color: theme.palette.secondary.main,
@@ -55,13 +64,15 @@ export const Blogs: React.FC<BlogProps> = ({ category }) => {
     const classes = useStyles();
     const [blogs, setBlog] = useState<Blog[]>([]);
     const [loading, setLoading] = useState<PageState>(PageState.LOADING);
+    const [title, setTitle] = useState("");
+    const [message, setMessage] = useState("");
     const [error, setError] = useState<string>('');
 
     useEffect(() => {
         setLoading(PageState.LOADING);
         getBlogsByCategory(category)
             .then(blogs => {
-                setBlog(blogs.data);
+                setBlog(blogs.data.reverse());
                 setTimeout(() => {
                     setLoading(PageState.LOADED);
                 }, 1000);
@@ -72,23 +83,53 @@ export const Blogs: React.FC<BlogProps> = ({ category }) => {
             });
     }, [category]);
 
+    const setMessageContent = (event: any) => {
+        setMessage(event.target.value);
+    }
+
+    const setTitleContent = (event: any) => {
+        setTitle(event.target.value);
+    }
+
+    const handlePost = () => {
+        let blog : Blog = {
+            title: title,
+            author: 'stark',
+            message: message,
+            category: category,
+            timestamp: '2020-08-01 17:15:26'
+        };
+        postBlog(blog).then(blog => {
+            console.log(blog);
+            let updatedBlogs: Blog[] = [blog.data , ...blogs ];
+            setBlog(updatedBlogs);
+        });
+    }
+
     return (
         <div className={classes.root}>
-            <Grid container spacing={2}>
+            <Grid container spacing={2}> 
                 <Grid item xs={12} >
                     <Grow in={true} timeout={500}>
                         <Card className={classes.cardRoot} variant="outlined">
                             <CardContent>
+                                <InputBase
+                                    className={classes.title}
+                                    placeholder="Title"
+                                    inputProps={{ 'aria-label': 'title' }}
+                                    onChange={setTitleContent}
+                                />
                                 <InputBase
                                     className={classes.input}
                                     placeholder="Post your thoughts here"
                                     inputProps={{ 'aria-label': 'search' }}
                                     autoFocus={true}
                                     multiline={true}
+                                    onChange={setMessageContent}
                                 />
                             </CardContent>
                             <CardActions className={classes.cardAction}>
-                                <Button className={classes.postButton}>Post</Button>
+                                <Button className={classes.postButton} onClick={handlePost}>Post</Button>
                             </CardActions>
                         </Card>
                     </Grow>
