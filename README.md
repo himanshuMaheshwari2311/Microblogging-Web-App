@@ -68,4 +68,20 @@ The UI will have a simple side nav bar which will have all the category type of 
 
 React components and hooks makes life a lot easy. I am following a functional development style to build this project and so far it has made the development easy to maintain and debug 😇
 
+## Containerizing the application
+For quick docker setup I am using `<tiangolo/uvicorn-gunicorn-fastapi:python3.7>` as base docker image (This is a really big docker image 907 MB, will comeup with a alpine docker image for my application)  
+Bundling the entire application into one container for now, will split up the components later. Dockerfile is pretty simple I use the base python image, install node on it and copy my application source to it.
+
+*PS: I have harcoded the value for the url in the frontend app, replace it with docker-machine ip (if using vm) or localhost. Will make it configurable via the dokcer build later (a todo). Also you will need to have mongodb instance already running and a correct url for it*
+
+To build the image run:
+```
+docker build -t microblog .
+```
+To start the container run:
+```
+docker run --name microblog -p 80:80 -p 8000:8000 microblog
+```
+Voila you have the entire microblog containerzied and running. You can now ship it to any platform of your choice 😀
+
 ## Stay tuned for more .. 😀
