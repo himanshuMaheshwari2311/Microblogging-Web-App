@@ -62,7 +62,7 @@ interface BlogProps {
 
 export const Blogs: React.FC<BlogProps> = ({ category }) => {
     const classes = useStyles();
-    const [blogs, setBlog] = useState<Blog[]>([]);
+    const [blogs, setBlogs] = useState<Blog[]>([]);
     const [loading, setLoading] = useState<PageState>(PageState.LOADING);
     const [title, setTitle] = useState("");
     const [message, setMessage] = useState("");
@@ -72,7 +72,7 @@ export const Blogs: React.FC<BlogProps> = ({ category }) => {
         setLoading(PageState.LOADING);
         getBlogsByCategory(category)
             .then(blogs => {
-                setBlog(blogs.data.reverse());
+                setBlogs(blogs.data.reverse());
                 setTimeout(() => {
                     setLoading(PageState.LOADED);
                 }, 1000);
@@ -102,7 +102,7 @@ export const Blogs: React.FC<BlogProps> = ({ category }) => {
         postBlog(blog).then(blog => {
             console.log(blog);
             let updatedBlogs: Blog[] = [blog.data , ...blogs ];
-            setBlog(updatedBlogs);
+            setBlogs(updatedBlogs);
         });
     }
 
