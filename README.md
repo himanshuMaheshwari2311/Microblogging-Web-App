@@ -84,4 +84,8 @@ docker run --name microblog -p 80:80 -p 8000:8000 microblog
 ```
 Voila you have the entire microblog containerzied and running. You can now ship it to any platform of your choice 😀
 
+## Searching a mongodb store
+Monogo db is not meant to act as a search engine, but with proper caliberation and using indexes properly we can get a efficient results for moderate sized web applicatoin with over a million plus records. This is a really good article on mongodb indexing https://studio3t.com/knowledge-base/articles/mongodb-index-strategy/. Give it a read. 
+Took a really long break from putting any new features to this. Will complete this feature soon!
+
 ## Stay tuned for more .. 😀
